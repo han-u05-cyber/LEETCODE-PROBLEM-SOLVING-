@@ -1,21 +1,31 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        int n = nums.size();
-        set<vector<int>> st;
-        for(int i = 0 ; i < n-1 ; i++){
-            set<int> hashset;
-            for(int j = i+1 ; j < n ; j++){
-                int target = -nums[i] - nums[j] ;
-                if(hashset.find(target) != hashset.end()){
-                    vector<int> temp = {target , nums[i] , nums[j]};
-                    sort(temp.begin() , temp.end());
-                    st.insert(temp);
+        sort(nums.begin() , nums.end());
+        vector<vector<int>> arr;
+            for(int i = 0 ; i < nums.size() ; i++){
+                if(i > 0 && nums[i] == nums[i-1]) continue;
+                int j = i+1;
+                int k = nums.size()-1 ;
+                while(j < k){
+                    int sum = nums[i] + nums[j] + nums[k];
+                    if(sum < 0){
+                        j++;
+                    }   
+                    else if(sum > 0){
+                        k--;
+                    } 
+                    else{
+                        vector<int> temp = {nums[i] , nums[j] , nums[k]};
+                        arr.push_back(temp);
+                        j++;
+                        k--;
+                        while(j < k && nums[j] == nums[j-1]) j++;
+                        while(j < k && nums[k] == nums[k+1]) k--;
+                    }
                 }
-                hashset.insert(nums[j]);
             }
-        }
-        vector<vector<int>> arr(st.begin() , st.end());
-        return arr;
+            return arr;
+    
     }
 };
