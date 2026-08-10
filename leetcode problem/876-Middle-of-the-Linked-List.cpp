@@ -11,18 +11,14 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        if(head == NULL || head->next == nullptr) return head;
-        int cnt = 0;
-        ListNode* temp = head;
-        while(temp != NULL){
-            cnt++;
-            temp = temp->next;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast != NULL && fast->next != NULL){
+            //traverse the turtoise by 1 step 
+            slow = slow->next;
+            //traverse the rabbit by 2 step 
+            fast = fast->next->next;
         }
-        temp = head ;
-        int x = cnt/2;
-        for(int i = 0 ; i < x ; i++){
-            temp = temp->next;
-        }
-        return temp;
+        return slow;
     }
 };
