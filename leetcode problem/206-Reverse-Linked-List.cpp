@@ -14,15 +14,10 @@ public:
         if(head == NULL || head->next == NULL){
             return head;
         }
-        ListNode* current = head;
-        ListNode* last = NULL;
-        ListNode* front = NULL;
-        while(current != NULL){
-            front = current->next;
-            current->next = last ;
-            last = current;
-            current = front;
-        }
-        return last;
+        ListNode* new_head = reverseList(head->next);
+        ListNode* front = head->next;
+        front->next = head;
+        head->next = NULL;
+        return new_head;
     }
 };
